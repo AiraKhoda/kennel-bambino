@@ -6,6 +6,8 @@
     <title>@ViewData["Title"] - kennel_bambino.web</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <partial name="_StylesPartial" />
+    @RenderSection("Styles",required:false)
 </head>
 <body>
     <header>
@@ -46,6 +48,7 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 
+    <partial name="_ScriptsPartial" />
     @RenderSection("Scripts", required: false)
 </body>
 </html>
