@@ -1,0 +1,73 @@
+﻿@page
+@model kennel_bambino.web.Pages.Admin.Patterns.IndexModel
+@{
+
+    ViewData["Title"] = "pattern List";
+}
+
+<section>
+
+    <h1 class="text-capitalize display-4">@ViewBag.Title</h1>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-dismissible alert-success">
+            <i class="fa fa-check fa-fw"></i> @TempData["Success"]
+        </div>
+    }
+
+    <div class="clearfix">
+        <a asp-page="Create" class="btn btn-primary text-capitalize float-left mb-3">
+            <i class="fa fa-plus fa-fw"></i> AddNew
+        </a>
+
+        <button type="button" class="btn btn-primary text-capitalize float-right mb-3">
+            <i class="fa fa-th-list fa-fw"></i> @Model.PatternsCount
+        </button>
+
+    </div>
+
+
+    @if (Model.Patterns.Any())
+    {
+        <div class="table-responsive">
+            <table class="table table-hover table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Operation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var pattern in Model.Patterns)
+                    {
+                        <tr>
+                            <td>@pattern.PatternId</td>
+                            <td>@pattern.Name</td>
+                            <td>
+                                <a asp-page="Edit" asp-route-id="@pattern.PatternId"
+                                   class="btn btn-outline-warning btn-sm"><i class="fa fa-pen fa-fw"></i>Edit</a>
+
+                                <a asp-page="Delete" asp-route-id="@pattern.PatternId"
+                                   class="btn btn-sm btn-outline-danger"><i class="fa fa-trash-alt fa-fw"></i>Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-dismissible border border-warning alert-danger">
+            <p class="mb-2">
+                <i class="fa fa-exclamation-triangle fa-fw"></i> <strong>No</strong> Pattern Exist.
+            </p>
+        </div>
+    }
+
+
+    
+
+</section>

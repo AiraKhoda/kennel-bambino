@@ -1,0 +1,46 @@
+﻿@page
+@model kennel_bambino.web.Pages.Admin.EyeColors.DeleteModel
+@{
+
+    ViewData["Title"] = "Delete EyeColor";
+}
+
+    <a asp-page="Index" class="btn btn-secondary border border-info my-2"><i class="fas fa-arrow-left fa-fw"></i> Back to List</a>
+
+<div class="card border-secondary">
+    <div class="card-header text-capitalize bg-danger badge-light">
+        <i class="fa fa-trash-alt fa-fw"></i> @ViewData["Title"]
+    </div>
+
+    <div class="card-body">
+
+        <form method="post" class="form-group" autocomplete="on">
+            <table class="table table-info table-hover">
+                <tbody>
+                    <tr class="table-active">
+                        <th scope="row">ID</th>
+                        <td><span class="badge badge-dark">@Model.EyeColor.EyeColorId</span></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Name</th>
+                        <td><span class="badge badge-dark">@Model.EyeColor.Name</span></td>
+                    </tr>
+                </tbody>
+            </table>
+            <button type="submit" class="btn btn-warning disabled">
+                <i class="fa fa-trash-alt fa-fw"></i> Delete
+            </button>
+
+            <div class="alert alert-dismissible alert-warning mt-3">
+
+
+                <p class="alert-heading">
+                    <i class="fa fa-exclamation-triangle fa-fw"></i>  This Field Have Some
+                    <strong>dependencies</strong> ,be caution if you want to delete!!!
+                </p>
+
+            </div>
+
+        </form>
+    </div>
+</div>

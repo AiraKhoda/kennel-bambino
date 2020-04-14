@@ -13,11 +13,14 @@ namespace kennel_bambino.web.Interfaces
         Task<Carousel> AddCarouselAsync(Carousel carousel, IFormFile carouselfile);
         IEnumerable<Carousel> GetCarousels();
         Task<IEnumerable<Carousel>> GetCarouselsAsync();
-        Carousel GetCarouselById(Carousel carouselId);
-        Task<Carousel> GetCarouselByIdAsync(Carousel carouselId);
+        Carousel GetCarouselById(int carouselId);
+        Task<Carousel> GetCarouselByIdAsync(int carouselId);
         Carousel UpdateCarousel(Carousel carousel,IFormFile carouselFile);
         Task<Carousel> UpdateCarouselAsync(Carousel carousel, IFormFile carouselFile);
         void RemoveCarousel(int carouselId);
         Task RemoveCarouselAsync(int carouselId);
+        int GetCarouselsCount();
+        Task<int> GetCarouselsCountAsync();
+
     }
 }

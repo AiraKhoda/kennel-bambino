@@ -1,0 +1,41 @@
+﻿@page "{id:min(1)}"
+@model kennel_bambino.web.Pages.Admin.BodyTypes.EditModel
+@{
+    ViewData["Title"] = "Edit BodyType";
+}
+
+@if (ViewData["Message"] != null)
+{
+    <div class="alert alert-dismissible alert-warning badge-light">
+        <i class="fa fa-exclamation-triangle fa-fw"></i> @ViewData["Message"]
+    </div>
+}
+
+<div class="card border-secondary">
+    <div class="card-header text-capitalize bg-warning ">
+        <i class="fa fa-pen fa-fw"></i> @ViewData["Title"]
+    </div>
+
+    <div class="card-body">
+
+        <form method="post" class="form-group" autocomplete="on">
+            <div class="form-group">
+                <label class="col-form-label" asp-for="BodyType.Title"></label>
+                <input type="text" class="form-control" asp-for="BodyType.Title" />
+                <input type="hidden" asp-for="BodyType.BodyTypeId" />
+
+                <span asp-validation-for="BodyType.Title" class="text-danger"></span>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-warning disabled">
+                    <i class="fa fa-pen fa-fw"></i> Edit
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}
+

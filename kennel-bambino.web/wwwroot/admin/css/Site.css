@@ -1,0 +1,13 @@
+﻿.main-min-height{
+    min-height:75vh;
+}
+
+.fixed-width-img-85{
+    width:100%;
+    display:block;
+    max-width:85px;
+}
+
+.max-width-520px{
+    max-width:520px;
+}

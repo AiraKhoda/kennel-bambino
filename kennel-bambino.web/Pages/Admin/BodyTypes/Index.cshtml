@@ -1,0 +1,73 @@
+﻿@page
+@model kennel_bambino.web.Pages.Admin.BodyTypes.IndexModel
+@{
+
+    ViewBag.Title = "BodyType List";
+}
+
+<section>
+
+    <h1 class="text-capitalize display-4">@ViewBag.Title</h1>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-dismissible alert-success">
+            <i class="fa fa-check fa-fw"></i> @TempData["Success"]
+        </div>
+    }
+
+    <div class="clearfix">
+        <a  asp-page="Create" class="btn btn-primary text-capitalize float-left mb-3">
+            <i class="fa fa-plus fa-fw"></i> AddNew
+        </a>
+
+        <button type="button" class="btn btn-primary text-capitalize float-right mb-3">
+            <i class="fa fa-th-list fa-fw"></i> @Model.BodyTypesCount
+        </button>
+
+    </div>
+
+    @if (Model.BodyTypes.Any())
+    {
+        <div class="table-responsive">
+            <table class="table table-hover table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Operation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var bodyType in Model.BodyTypes)
+                    {
+                        <tr>
+                            <td>@bodyType.BodyTypeId</td>
+                            <td>@bodyType.Title</td>
+                            <td>
+                                <a asp-page="Edit" asp-route-id="@bodyType.BodyTypeId"
+                                   class="btn btn-outline-warning btn-sm"><i class="fa fa-pen fa-fw"></i>Edit</a>
+
+                                <a asp-page="Delete" asp-route-id="@bodyType.BodyTypeId"
+                                   class="btn btn-sm btn-outline-danger"><i class="fa fa-trash-alt fa-fw"></i>Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-dismissible border border-warning alert-danger">
+            <p class="mb-2">
+               <i class="fa fa-exclamation-triangle fa-fw"></i> <strong>No</strong> BodyType Exist.
+            </p>
+        </div>
+    }
+
+
+
+</section>
+
+

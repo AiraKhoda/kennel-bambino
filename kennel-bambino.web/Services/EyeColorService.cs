@@ -61,14 +61,21 @@ namespace kennel_bambino.web.Services
                 return null;
             }
         }
+
+        public int EyeColorsCount() => _context.EyeColors.Count();
+
+
+        public async Task<int> EyeColorsCountAsync() => await _context.EyeColors.CountAsync();
+        
+
         /// <summary>
         /// Get All EyeColors
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<EyeColor> GetAllEyeColors() => _context.EyeColors.ToList();
+        public List<EyeColor> GetAllEyeColors() => _context.EyeColors.ToList();
 
 
-        public async Task<IEnumerable<EyeColor>> GetAllEyeColorsAsync() => await _context.EyeColors.ToListAsync();
+        public async Task<List<EyeColor>> GetAllEyeColorsAsync() => await _context.EyeColors.ToListAsync();
 
         /// <summary>
         /// Get EyeColor by id from database

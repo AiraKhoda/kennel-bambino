@@ -10,13 +10,15 @@ namespace kennel_bambino.web.Interfaces
     {
         Pattern AddPattern(Pattern pattern);
         Task<Pattern> AddPatternAsync(Pattern pattern);
-        IEnumerable<Pattern> GetAllPatterns();
-        Task<IEnumerable<Pattern>> GetAllPatternsAsync();
+        List<Pattern> GetAllPatterns();
+        Task<List<Pattern>> GetAllPatternsAsync();
         Pattern GetPatternById(int patternId);
         Task<Pattern> GetPatternByIdAsync(int patternId);
         Pattern UpdatePattern(Pattern pattern);
         Task<Pattern> UpdatePatternAsync(Pattern pattern);
         void RemovePattern(int patternId);
         Task RemovePatternAsync(int patternId);
+        int PatternsCount();
+        Task<int> PatternsCountAsync();
     }
 }

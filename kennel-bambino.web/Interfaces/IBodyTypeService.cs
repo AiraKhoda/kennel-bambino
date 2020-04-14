@@ -10,14 +10,16 @@ namespace kennel_bambino.web.Interfaces
     {
         BodyType AddBodyType(BodyType bodyType);
         Task<BodyType> AddBodyTypeAsync(BodyType bodyType);
-        IEnumerable<BodyType> GetAllBodyTypes();
-        Task<IEnumerable<BodyType>> GetAllBodyTypesAsync();
+        List<BodyType> GetAllBodyTypes();
+        Task<List<BodyType>> GetAllBodyTypesAsync();
         BodyType GetBodyTypeById(int bodyTypeId);
         Task<BodyType> GetBodyTypeByIdAsync(int bodyTypeId);
         BodyType UpdateBodyType(BodyType bodyType);
         Task<BodyType> UpdateBodyTypeAsync(BodyType bodyType);
         void RemoveBodyType(int bodyTypeId);
         Task RemoveBodyTypeAsync(int bodyTypeId);
+        int BodyTypesount();
+        Task<int> BodyTypesCountAsync();
 
     }
 }

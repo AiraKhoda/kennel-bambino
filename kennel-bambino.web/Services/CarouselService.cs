@@ -3,9 +3,11 @@ using kennel_bambino.web.Helpers;
 using kennel_bambino.web.Interfaces;
 using kennel_bambino.web.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -67,37 +69,45 @@ namespace kennel_bambino.web.Services
             }
         }
 
-        public Carousel GetCarouselById(Carousel carouselId)
-        {
-            throw new NotImplementedException();
-        }
+        public Carousel GetCarouselById(int carouselId) => _context.Carousels.SingleOrDefault(c => c.CarouselId == carouselId);
 
-        public Task<Carousel> GetCarouselByIdAsync(Carousel carouselId)
-        {
-            throw new NotImplementedException();
-        }
+
+        public async Task<Carousel> GetCarouselByIdAsync(int carouselId) => await _context.Carousels.SingleOrDefaultAsync(c => c.CarouselId == carouselId);
+
         /// <summary>
         /// Get all Carousels
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<Carousel> GetCarousels()
-        {
-            throw new NotImplementedException();
-        }
+        public IEnumerable<Carousel> GetCarousels() => _context.Carousels.ToList();
 
-        public Task<IEnumerable<Carousel>> GetCarouselsAsync()
-        {
-            throw new NotImplementedException();
-        }
+
+        public async Task<IEnumerable<Carousel>> GetCarouselsAsync() => await _context.Carousels.ToListAsync();
+
+
+        public int GetCarouselsCount() => _context.Carousels.Count();
+
+
+        public async Task<int> GetCarouselsCountAsync() => await _context.Carousels.CountAsync();
+
 
         public void RemoveCarousel(int carouselId)
         {
-            throw new NotImplementedException();
+            var Carousel = GetCarouselById(carouselId);
+
+            RemoveDeletedCarousel(Carousel);
+
+            _context.Carousels.Remove(Carousel);
+            _context.SaveChanges();
         }
 
-        public Task RemoveCarouselAsync(int carouselId)
+        public async Task RemoveCarouselAsync(int carouselId)
         {
-            throw new NotImplementedException();
+            var Carousel = await GetCarouselByIdAsync(carouselId);
+
+            RemoveDeletedCarousel(Carousel);
+
+            _context.Carousels.Remove(Carousel);
+            await _context.SaveChangesAsync();
         }
         /// <summary>
         /// Update the Carousel's data from database
@@ -109,7 +119,7 @@ namespace kennel_bambino.web.Services
         {
             try
             {
-
+                carousel.ImageName = carouselFile.UpdateUploadedCarouselPhoto(carousel);
 
                 _context.Carousels.Update(carousel);
                 _context.SaveChanges();
@@ -129,7 +139,7 @@ namespace kennel_bambino.web.Services
         {
             try
             {
-
+                carousel.ImageName = carouselFile.UpdateUploadedCarouselPhoto(carousel);
 
                 _context.Carousels.Update(carousel);
                 await _context.SaveChangesAsync();
@@ -144,5 +154,18 @@ namespace kennel_bambino.web.Services
                 return null;
             }
         }
+
+        #region Helper
+        private void RemoveDeletedCarousel(Carousel carousel)
+        {
+            string carouselDeletePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/carousels/", carousel.ImageName);
+
+            if (File.Exists(carouselDeletePath))
+            {
+                File.Delete(carouselDeletePath);
+            }
+        }
+        #endregion
+
     }
 }

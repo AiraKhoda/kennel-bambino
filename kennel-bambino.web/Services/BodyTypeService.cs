@@ -61,14 +61,23 @@ namespace kennel_bambino.web.Services
                 return null;
             }
         }
+
+        public int BodyTypesount() => _context.BodyTypes.Count();
+
+
+        public async Task<int> BodyTypesCountAsync() => await _context.BodyTypes.CountAsync();
+       
+
+        
+
         /// <summary>
         /// Get All BodyTypes
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<BodyType> GetAllBodyTypes() => _context.BodyTypes.ToList();
+        public List<BodyType> GetAllBodyTypes() => _context.BodyTypes.ToList();
 
 
-        public async Task<IEnumerable<BodyType>> GetAllBodyTypesAsync() => await _context.BodyTypes.ToListAsync();
+        public async Task<List<BodyType>> GetAllBodyTypesAsync() => await _context.BodyTypes.ToListAsync();
 
         /// <summary>
         /// Get BodyType by id from database

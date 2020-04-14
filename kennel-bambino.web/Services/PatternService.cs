@@ -65,10 +65,10 @@ namespace kennel_bambino.web.Services
         /// Get All Patterns
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<Pattern> GetAllPatterns() => _context.Patterns.ToList();
+        public List<Pattern> GetAllPatterns() => _context.Patterns.ToList();
 
 
-        public async Task<IEnumerable<Pattern>> GetAllPatternsAsync() => await _context.Patterns.ToListAsync();
+        public async Task<List<Pattern>> GetAllPatternsAsync() => await _context.Patterns.ToListAsync();
 
         /// <summary>
         /// Get Pattern by id from database
@@ -79,6 +79,12 @@ namespace kennel_bambino.web.Services
 
 
         public async Task<Pattern> GetPatternByIdAsync(int patternId) => await _context.Patterns.SingleOrDefaultAsync(p => p.PatternId == patternId);
+
+        public int PatternsCount() => _context.Patterns.Count();
+
+
+        public async Task<int> PatternsCountAsync() => await _context.Patterns.CountAsync();
+
 
         /// <summary>
         /// Remove the Pattern from database

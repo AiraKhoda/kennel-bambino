@@ -10,13 +10,15 @@ namespace kennel_bambino.web.Interfaces
     {
         EyeColor AddEyeColor(EyeColor eyeColor);
         Task<EyeColor> AddEyeColorAsync(EyeColor eyeColor);
-        IEnumerable<EyeColor> GetAllEyeColors();
-        Task<IEnumerable<EyeColor>> GetAllEyeColorsAsync();
+        List<EyeColor> GetAllEyeColors();
+        Task<List<EyeColor>> GetAllEyeColorsAsync();
         EyeColor GetEyeColorById(int eyeColorId);
         Task<EyeColor> GetEyeColorByIdAsync(int eyeColorId);
         EyeColor UpdateEyeColor(EyeColor eyeColor);
         Task<EyeColor> UpdateEyeColorAsync(EyeColor eyeColor);
         void RemoveEyeColor(int eyeColorId);
         Task RemoveEyeColorAsync(int eyeColorId);
+        int EyeColorsCount();
+        Task<int> EyeColorsCountAsync();
     }
 }

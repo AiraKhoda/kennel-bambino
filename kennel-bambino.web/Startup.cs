@@ -12,6 +12,8 @@ using kennel_bambino.web.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using kennel_bambino.web.Interfaces;
+using kennel_bambino.web.Services;
 
 namespace kennel_bambino.web
 {
@@ -33,6 +35,11 @@ namespace kennel_bambino.web
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddRazorPages();
+
+            services.AddTransient<IBodyTypeService, BodyTypeService>();
+            services.AddTransient<IEyeColorService, EyeColorService>();
+            services.AddTransient<IPatternService, PatternService>();
+            services.AddTransient<ICarouselService, CarouselService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
