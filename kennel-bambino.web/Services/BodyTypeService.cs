@@ -62,7 +62,7 @@ namespace kennel_bambino.web.Services
             }
         }
 
-        public int BodyTypesount() => _context.BodyTypes.Count();
+        public int BodyTypesCount() => _context.BodyTypes.Count();
 
 
         public async Task<int> BodyTypesCountAsync() => await _context.BodyTypes.CountAsync();

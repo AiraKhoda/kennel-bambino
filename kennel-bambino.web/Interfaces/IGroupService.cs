@@ -23,5 +23,7 @@ namespace kennel_bambino.web.Interfaces
         Task<Group> UpdateGroupAsync(IFormFile imageFile, Group group);
         void RemoveGroup(int groupId);
         Task RemoveGroupAsync(int groupId);
+        int AllGroupsCount();
+        Task<int> AllGroupsCountAsync();
     }
 }

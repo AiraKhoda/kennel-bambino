@@ -1,0 +1,95 @@
+﻿@page
+@model kennel_bambino.web.Pages.Admin.Groups.IndexModel
+@{
+    ViewBag.Title = "Group List";
+}
+
+
+
+<section>
+
+    <h1 class="text-capitalize display-4"><i class="fas fa-address-card fa-fw text-dark"></i>  @ViewBag.Title</h1>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-dismissible alert-success">
+            <i class="fa fa-check fa-fw"></i> @TempData["Success"]
+        </div>
+    }
+
+    <div class="clearfix">
+        <a asp-page="Create" class="btn btn-primary text-capitalize float-left mb-3">
+            <i class="fa fa-plus fa-fw"></i> AddNew
+        </a>
+
+        <button type="button" class="btn btn-primary text-capitalize float-right mb-3">
+            <i class="fa fa-th-list fa-fw"></i> @Model.GroupsCount
+        </button>
+
+    </div>
+
+
+    @if (Model.Groups.Any())
+    {
+        <div class="table-responsive">
+            <table class="table table-borderless table-hover table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">SubGroups</th>
+                        <th scope="col">Operation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Group group in Model.Groups)
+                    {
+                        <tr>
+                            <td>@group.GroupId</td>
+                            <td>@group.Title</td>
+                            <td>
+                                @foreach (var specie in Model.SubGroups.Where(sg => sg.ParentId == group.GroupId))
+                                {
+                                    <span class="mt-1"></span>
+                                    <p>@specie.Title&nbsp;</p>
+                                    <a asp-page="Edit" asp-route-id="@specie.GroupId"
+                                       class="btn btn-outline-warning btn-sm"
+                                       asp-route-parentId="@specie.ParentId"><i class="fa fa-pen fa-fw"></i> Edit</a>
+                                    <a asp-page="Delete" asp-route-id="@specie.GroupId"
+                                       class="btn btn-outline-danger btn-sm"
+                                       asp-route-parentId="@specie.ParentId"><i class="fa fa-trash-alt fa-fw"></i> Delete</a>
+                                }
+                            </td>
+
+                            <td>
+                                <a asp-page="Create" asp-route-id="@group.GroupId"
+                                   class="btn btn-outline-success btn-sm"><i class="fa fa-plus fa-fw"></i> Add SubGroup</a>
+
+                                <a asp-page="Edit" asp-route-id="@group.GroupId"
+                                   class="btn btn-outline-warning btn-sm"><i class="fa fa-pen fa-fw"></i> Edit</a>
+
+                                @if (Model.SubGroups.Where(sg => sg.ParentId == group.GroupId).Count() == 0)
+                                {
+                                    <a asp-page="Delete" asp-route-id="@group.GroupId"
+                                       class="btn btn-outline-warning btn-sm"><i class="fa fa-trash-alt fa-fw"></i> Delete</a>
+                                }
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-dismissible border border-warning alert-danger">
+            <p class="mb-2">
+                <i class="fa fa-exclamation-triangle fa-fw"></i> <strong>No</strong> Group Exist.
+            </p>
+        </div>
+    }
+    
+
+
+</section>

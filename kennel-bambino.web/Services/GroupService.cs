@@ -67,6 +67,13 @@ namespace kennel_bambino.web.Services
                 return null;
             }
         }
+
+        public int AllGroupsCount() => _context.Groups.Count();
+
+
+        public async Task<int> AllGroupsCountAsync() => await _context.Groups.CountAsync();
+       
+
         /// <summary>
         /// Get All Groups and subGroups
         /// </summary>
@@ -81,10 +88,10 @@ namespace kennel_bambino.web.Services
         /// </summary>
         /// <param name="groupId"></param>
         /// <returns></returns>
-        public Group GetGroupById(int groupId) => _context.Groups.SingleOrDefault(g => g.GroupId == groupId);
+        public Group GetGroupById(int groupId) => _context.Groups.AsNoTracking().SingleOrDefault(g => g.GroupId == groupId);
 
 
-        public async Task<Group> GetGroupByIdAsync(int groupId) => await _context.Groups.SingleOrDefaultAsync(g => g.GroupId == groupId);
+        public async Task<Group> GetGroupByIdAsync(int groupId) => await _context.Groups.AsNoTracking().SingleOrDefaultAsync(g => g.GroupId == groupId);
 
         /// <summary>
         /// Get all Groups

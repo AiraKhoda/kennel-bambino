@@ -1,6 +1,7 @@
 ﻿using kennel_bambino.web.Data;
 using kennel_bambino.web.Interfaces;
 using kennel_bambino.web.Models;
+using kennel_bambino.web.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
@@ -61,6 +62,56 @@ namespace kennel_bambino.web.Services
                 return null;
             }
         }
+
+        public int ContactsCount() => _context.Contacts.Count();
+
+
+        public async Task<int> ContactsCountAsync() => await _context.Contacts.CountAsync();
+        public ContactPagingViewModel GetContacts(int pageNumber = 1, int pageSize = 24)
+        {
+            IQueryable<Contact> contacts = _context.Contacts;
+
+            int take = pageSize;
+            int skip = (pageNumber - 1) * take;
+            int petsCount = contacts.Count();
+
+            int pageCount = (int)Math.Ceiling(decimal.Divide(petsCount, take));
+
+            return new ContactPagingViewModel
+            {
+                Contacts = contacts.Skip(skip)
+                .Take(take)
+                .Where(c => c.IsChecked || c.IsChecked == false)
+                .OrderByDescending(c => c.ContactId)
+                .ToList(),
+                PageNumber = pageNumber,
+                PageCount = pageCount
+            };
+        }
+
+        public async Task<ContactPagingViewModel> GetContactsAsync(int pageNumber = 1, int pageSize = 24)
+        {
+            IQueryable<Contact> contacts = _context.Contacts;
+
+            int take = pageSize;
+            int skip = (pageNumber - 1) * take;
+            int petsCount = await contacts.CountAsync();
+
+            int pageCount = (int)Math.Ceiling(decimal.Divide(petsCount, take));
+
+            return new ContactPagingViewModel
+            {
+                Contacts = await contacts.Skip(skip)
+                .Take(take)
+                .Where(c => c.IsChecked || c.IsChecked == false)
+                .OrderByDescending(c => c.ContactId)
+                .ToListAsync(),
+                PageNumber = pageNumber,
+                PageCount = pageCount
+            };
+        }
+
+
         /// <summary>
         /// Get All Contacts
         /// </summary>
@@ -139,5 +190,11 @@ namespace kennel_bambino.web.Services
                 return null;
             }
         }
+
+        public int NewContactsCount() => _context.Contacts.Where(c => c.IsChecked == false).Count();
+        
+
+        public async Task<int> NewContactsCountAsync() => await _context.Contacts.Where(c => c.IsChecked == false).CountAsync();
+
     }
 }

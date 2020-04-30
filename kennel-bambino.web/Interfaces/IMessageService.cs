@@ -1,4 +1,5 @@
 ﻿using kennel_bambino.web.Models;
+using kennel_bambino.web.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,13 @@ namespace kennel_bambino.web.Interfaces
         Task<Contact> UpdateContactAsync(Contact contact);
         void RemoveContact(int contactId);
         Task RemoveContactAsync(int contactId);
+        ContactPagingViewModel GetContacts(int pageNumber, int pageSize);
+        Task<ContactPagingViewModel> GetContactsAsync(int pageNumber, int pageSize);
+        int ContactsCount();
+        Task<int> ContactsCountAsync();
+        int NewContactsCount();
+        Task<int> NewContactsCountAsync();
+
     }
 }
 

@@ -1,8 +1,9 @@
-﻿@page
-@model kennel_bambino.web.Pages.Admin.Carousels.DeleteModel
+﻿@page "{id:min(1)}"
+@model kennel_bambino.web.Pages.Admin.Photos.DeleteModel
 @{
-    ViewData["Title"] = "Delete Carousel";
+    ViewData["Title"] = "Delete Photo";
 }
+
 
 
 <a asp-page="Index" class="btn btn-secondary border border-info my-2"><i class="fas fa-arrow-left fa-fw"></i> Back to List</a>
@@ -15,27 +16,26 @@
     </div>
 
 
-
     <div class="card-body">
 
-        <form method="post" class="form-group" autocomplete="on">
+        <form method="post" class="form-group">
             <table class="table table-info table-hover">
                 <tbody>
                     <tr class="table-active">
                         <th scope="row">ID</th>
-                        <td><span class="badge badge-dark">@Model.Carousel.CarouselId</span></td>
+                        <td><span class="badge badge-dark">@Model.Photo.PhotoId</span></td>
                     </tr>
                     <tr>
                         <th scope="row">Image</th>
                         <td>
-                            <img src="~/images/carousels/@Model.Carousel.ImageName"
+                            <img src="~/images/thumbnails/@Model.Photo.PhotoName" alt="@Model.Photo.Pet.Title"
                                  class="rounded img-thumbnail fixed-width-img-85 " asp-append-version="true" />
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row">Alt</th>
+                        <th scope="row">Pet</th>
                         <td>
-                            <span class="badge badge-dark">@Model.Carousel.Alt</span>
+                            <span class="badge badge-dark">@Model.Photo.Pet.Title</span>
                         </td>
                     </tr>
                 </tbody>

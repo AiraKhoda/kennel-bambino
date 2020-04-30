@@ -1,0 +1,89 @@
+﻿@page
+@model kennel_bambino.web.Pages.Admin.Messages.IndexModel
+@{
+    ViewBag.Title = "Message List";
+}
+
+<section>
+
+    <h1 class="text-capitalize display-4"><i class="far fa-envelope fa-fw text-success"></i> @ViewBag.Title</h1>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-dismissible alert-success">
+            <i class="fa fa-check fa-fw"></i> @TempData["Success"]
+        </div>
+    }
+
+    <div class="clearfix">
+        <button type="button" class="btn btn-primary text-capitalize float-right mb-3">
+            <i class="fa fa-th-list fa-fw"></i> @Model.ContactsCount
+        </button>
+    </div>
+
+    @if (Model.ContactPagingVM.PageCount > 1)
+    {
+        <nav>
+
+            <ul class="pagination pagination-sm justify-content-center">
+                @for (int i = 1; i <= Model.ContactPagingVM.PageCount; i++)
+                {
+                    <li class="page-item @(Model.ContactPagingVM.PageNumber==i?"active":"")?">
+                        <a class="page-link" href="~/admin/Messages?PageNumber=@i">@i</a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    }
+
+
+    @if (Model.ContactPagingVM.Contacts.Any())
+    {
+        @foreach (Contact contact in Model.ContactPagingVM.Contacts)
+        {
+            <div class="card border-primary mb-3" >
+                <header class="card-header">Phone Number: <span class="badge badge-primary">@contact.PhoneNumber</span></header>
+                <div class="card-body">
+                    <h4 class="card-title">@contact.Title</h4>
+                    <p class="card-text">@contact.Description</p>
+
+                    <hr />
+
+                    <span class="badge badge-light">@contact.SubmitDate.ToLongDateString()</span>
+                </div>
+
+                <footer class="card-footer clearfix">
+                    <div class="float-sm-left">
+                        <a asp-page="Edit" asp-route-id="@contact.ContactId"
+                           class="btn btn-outline-warning"><i class="fa fa-pen fa-fw"></i> Edit</a>
+
+                        <a asp-page="Delete" asp-route-id="@contact.ContactId"
+                           class="btn btn-outline-danger"><i class="fa fa-trash-alt fa-fw"></i> Delete</a>
+                    </div>
+
+                    <span class="float-right">
+                        @if (contact.IsChecked)
+                        {
+                            <span class="badge badge-pill badge-success">Checked</span>
+                        }
+                        else
+                        {
+                            <span class="badge badge-pill badge-danger">Not Checked!</span>
+                        }
+                    </span>
+                </footer>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="alert alert-dismissible border border-warning alert-danger">
+            <p class="mb-2">
+                <i class="fa fa-exclamation-triangle fa-fw"></i> <strong>No</strong> Message Exist.
+            </p>
+        </div>
+    }
+
+</section>
+
+

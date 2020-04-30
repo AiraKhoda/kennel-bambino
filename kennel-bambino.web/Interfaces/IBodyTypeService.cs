@@ -18,7 +18,7 @@ namespace kennel_bambino.web.Interfaces
         Task<BodyType> UpdateBodyTypeAsync(BodyType bodyType);
         void RemoveBodyType(int bodyTypeId);
         Task RemoveBodyTypeAsync(int bodyTypeId);
-        int BodyTypesount();
+        int BodyTypesCount();
         Task<int> BodyTypesCountAsync();
 
     }

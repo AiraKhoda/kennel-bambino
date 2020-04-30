@@ -1,0 +1,97 @@
+﻿@page
+@model kennel_bambino.web.Pages.Admin.DashboardModel
+
+@inject IBodyTypeService bodytypeService
+@inject ICarouselService carouselService
+@inject IPatternService  patternService
+@inject IEyeColorService eyecolorService
+@inject IMessageService messageService
+@inject IPhotoService photoService
+
+
+@{
+    ViewData["Title"] = "PetShop Dashboard";
+}
+
+
+<section>
+
+    <h1 class="text-capitalize display-3 mb-2">
+        <i class="fa fa-paw fa-fw"></i> @ViewData["Title"]
+    </h1>
+
+    <a class="btn btn-outline-info border border-info text-capitalize mb-2" href="/Admin/Messages">
+        <span class="badge badge-pill badge-success mx-1">@messageService.NewContactsCount()</span> New Messages
+    </a>
+
+    <div class="row text-center">
+        <div class="col-12 col-sm-4">
+            <div class="card text-white bg-dark mb-3" style="max-width: 20rem;">
+                <div class="card-header">BodyTypes Count</div>
+                <div class="card-body">
+                    <h4 class="card-title">@bodytypeService.BodyTypesCount()</h4>
+                    <a href="/Admin/BodyTypes" class="btn btn-outline-light text-capitalize">BodyType List</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-4">
+            <div class="card text-white bg-dark mb-3" style="max-width: 20rem;">
+                <div class="card-header">EyeColors Count</div>
+                <div class="card-body">
+                    <h4 class="card-title">@eyecolorService.EyeColorsCount()</h4>
+                    <a href="/Admin/EyeColors" class="btn btn-outline-light text-capitalize">EyeColor List</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-4">
+            <div class="card text-white bg-dark mb-3" style="max-width: 20rem;">
+                <div class="card-header">Carousels Count</div>
+                <div class="card-body">
+                    <h4 class="card-title">@carouselService.GetCarouselsCount()</h4>
+                    <a href="/Admin/Carousels" class="btn btn-outline-light text-capitalize">Carousel List</a>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-12 col-sm-4">
+            <div class="card text-white bg-dark mb-3" style="max-width: 20rem;">
+                <div class="card-header">Patterns Count</div>
+                <div class="card-body">
+                    <h4 class="card-title">@patternService.PatternsCount()</h4>
+                    <a href="/Admin/Patterns" class="btn btn-outline-light text-capitalize">Pattern List</a>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-12 col-sm-4">
+            <div class="card text-white bg-dark mb-3" style="max-width: 20rem;">
+                <div class="card-header">Photos Count</div>
+                <div class="card-body">
+                    <h4 class="card-title">@photoService.PhotosCount()</h4>
+                    <a href="/Admin/Photos" class="btn btn-outline-light text-capitalize">Photo List</a>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-12 col-sm-4">
+            <div class="card text-white bg-dark mb-3" style="max-width: 20rem;">
+                <div class="card-header">Messages Count</div>
+                <div class="card-body">
+                    <h4 class="card-title">@messageService.ContactsCount()</h4>
+                    <a href="/Admin/Messages" class="btn btn-outline-light text-capitalize">Message List</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+</section>
+
+

@@ -32,7 +32,7 @@ namespace kennel_bambino.web.Services
         /// <param name="pet"></param>
         /// <param name="petPhoto"></param>
         /// <returns></returns>
-        public Pet AddPEet(Pet pet, List<IFormFile> petPhoto)
+        public Pet AddPet(Pet pet, List<IFormFile> petPhoto)
         {
             try
             {
@@ -156,7 +156,7 @@ namespace kennel_bambino.web.Services
         public async Task<Pet> GetPetByIdAsync(int petId) => await _context.Pets.SingleOrDefaultAsync(p => p.PetId == petId);
 
 
-        public int PetCount() => _context.Pets.Where(p=>p.IsDelete==false).Count();
+        public int PetCount() => _context.Pets.Where(p => p.IsDelete == false).Count();
 
 
         public async Task<int> PetCountAsync() => await _context.Pets.Where(p => p.IsDelete == false).CountAsync();
@@ -186,42 +186,7 @@ namespace kennel_bambino.web.Services
             _context.Pets.Update(pet);
             await _context.SaveChangesAsync();
         }
-        /// <summary>
-        /// Update the pet's from database 
-        /// </summary>
-        /// <param name="pet"></param>
-        /// <param name="petPhoto"></param>
-        /// <returns></returns>
-        public Pet UpdatePet(Pet pet, List<IFormFile> petPhoto)
-        {
-            try
-            {
-                _context.Pets.Update(pet);
-                _context.SaveChanges();
-                if (petPhoto != null)
-                {
-                    foreach (var imageName in UploadPetImages(petPhoto))
-                    {
-                        _context.Photos.Add(new Photo
-                        {
-                            PetId = pet.PetId,
-                            PhotoName = imageName
-                        }
-                   );
 
-                        _context.SaveChanges();
-                    }
-                }
-                return pet;
-            }
-            catch (Exception ex)
-            {
-
-                _logger.LogError($"{ex.StackTrace}\n{ex.Message}");
-
-                return null;
-            }
-        }
 
         public PetPagingViewModel SearchPets(string code, string title, int pageSize = 30, int pageNumber = 1)
         {
@@ -272,7 +237,42 @@ namespace kennel_bambino.web.Services
             };
 
         }
+        /// <summary>
+        /// Update the pet's from database 
+        /// </summary>
+        /// <param name="pet"></param>
+        /// <param name="petPhoto"></param>
+        /// <returns></returns>
+        public Pet UpdatePet(Pet pet, List<IFormFile> petPhoto)
+        {
+            try
+            {
+                _context.Pets.Update(pet);
+                _context.SaveChanges();
+                if (petPhoto != null)
+                {
+                    foreach (var imageName in UploadPetImages(petPhoto))
+                    {
+                        _context.Photos.Add(new Photo
+                        {
+                            PetId = pet.PetId,
+                            PhotoName = imageName
+                        }
+                   );
 
+                        _context.SaveChanges();
+                    }
+                }
+                return pet;
+            }
+            catch (Exception ex)
+            {
+
+                _logger.LogError($"{ex.StackTrace}\n{ex.Message}");
+
+                return null;
+            }
+        }
         public async Task<Pet> UpdatePetAsync(Pet pet, List<IFormFile> petPhoto)
         {
             try
@@ -329,7 +329,7 @@ namespace kennel_bambino.web.Services
             return new List<string> { "deafult.jpg" };
         }
 
-        public void RemovePetImages(int petId)
+        private void RemovePetImages(int petId)
         {
             var petOldImages = _context.Photos.Where(p => p.PetId == petId);
 
