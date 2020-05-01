@@ -1,5 +1,6 @@
 ﻿using kennel_bambino.web.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,10 @@ namespace kennel_bambino.web.Interfaces
         Task<Group> AddGroupAsync(IFormFile imageFile, Group group);
         IEnumerable<Group> GetAllGroups();
         Task<IEnumerable<Group>> GetAllGroupsAsync();
+        List<SelectListItem> GetGroupSelectList();
+        Task<List<SelectListItem>> GetGroupSelectListAsync();
+        List<SelectListItem> GetSubGroupSelectList(int groupId);
+        Task<List<SelectListItem>> GetSubGroupSelectListAsync(int groupId);
         IEnumerable<Group> GetGroups();
         Task<IEnumerable<Group>> GetGroupsAsync();
         IEnumerable<Group> GetSubGroups();
@@ -25,5 +30,9 @@ namespace kennel_bambino.web.Interfaces
         Task RemoveGroupAsync(int groupId);
         int AllGroupsCount();
         Task<int> AllGroupsCountAsync();
+        int GroupsCount();
+        Task<int> GroupsCountAsync();
+        int SubGroupsCount();
+        Task<int> SubGroupsCountAsync();
     }
 }

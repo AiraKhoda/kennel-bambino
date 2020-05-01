@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace kennel_bambino.web.Services
 {
@@ -88,6 +89,26 @@ namespace kennel_bambino.web.Services
 
 
         public async Task<BodyType> GetBodyTypeByIdAsync(int bodyTypeId) => await _context.BodyTypes.SingleOrDefaultAsync(b => b.BodyTypeId == bodyTypeId);
+
+        /// <summary>
+        /// Get BodyType select list item
+        /// </summary>
+        /// <returns></returns>
+        public List<SelectListItem> GetBodyTypeSelectList() => _context.BodyTypes.Select(b => new
+          SelectListItem
+        {
+            Text = b.Title,
+            Value = b.BodyTypeId.ToString()
+        }).ToList();
+
+
+        public async Task<List<SelectListItem>> GetBodyTypeSelectListAsync() => await _context.BodyTypes.Select(b => new
+          SelectListItem
+        {
+            Text = b.Title,
+            Value = b.BodyTypeId.ToString()
+        }).ToListAsync();
+        
 
         /// <summary>
         /// Remove the BodyType from database

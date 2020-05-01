@@ -156,10 +156,10 @@ namespace kennel_bambino.web.Services
         public async Task<Pet> GetPetByIdAsync(int petId) => await _context.Pets.SingleOrDefaultAsync(p => p.PetId == petId);
 
 
-        public int PetCount() => _context.Pets.Where(p => p.IsDelete == false).Count();
+        public int PetsCount() => _context.Pets.Where(p => p.IsDelete == false).Count();
 
 
-        public async Task<int> PetCountAsync() => await _context.Pets.Where(p => p.IsDelete == false).CountAsync();
+        public async Task<int> PetsCountAsync() => await _context.Pets.Where(p => p.IsDelete == false).CountAsync();
 
         /// <summary>
         /// Remove the pet from database

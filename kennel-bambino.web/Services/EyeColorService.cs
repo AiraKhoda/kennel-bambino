@@ -1,6 +1,7 @@
 ﻿using kennel_bambino.web.Data;
 using kennel_bambino.web.Interfaces;
 using kennel_bambino.web.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
@@ -66,7 +67,7 @@ namespace kennel_bambino.web.Services
 
 
         public async Task<int> EyeColorsCountAsync() => await _context.EyeColors.CountAsync();
-        
+
 
         /// <summary>
         /// Get All EyeColors
@@ -86,6 +87,22 @@ namespace kennel_bambino.web.Services
 
 
         public async Task<EyeColor> GetEyeColorByIdAsync(int eyeColorId) => await _context.EyeColors.SingleOrDefaultAsync(e => e.EyeColorId == eyeColorId);
+
+        public List<SelectListItem> GetEyeColorSelectList() => _context.EyeColors.Select(e => new
+           SelectListItem
+        {
+            Text = e.Name,
+            Value = e.EyeColorId.ToString()
+        }).ToList();
+
+
+        public async Task<List<SelectListItem>> GetEyeColorSelectListAsync() => await _context.EyeColors.Select(e => new
+           SelectListItem
+        {
+            Text = e.Name,
+            Value = e.EyeColorId.ToString()
+        }).ToListAsync();
+
 
         /// <summary>
         /// Remove the EyeColor from database

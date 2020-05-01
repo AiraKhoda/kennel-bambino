@@ -3,6 +3,7 @@ using kennel_bambino.web.Helpers;
 using kennel_bambino.web.Interfaces;
 using kennel_bambino.web.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
@@ -72,7 +73,7 @@ namespace kennel_bambino.web.Services
 
 
         public async Task<int> AllGroupsCountAsync() => await _context.Groups.CountAsync();
-       
+
 
         /// <summary>
         /// Get All Groups and subGroups
@@ -102,6 +103,22 @@ namespace kennel_bambino.web.Services
 
         public async Task<IEnumerable<Group>> GetGroupsAsync() => await _context.Groups.Where(g => g.ParentId == null).ToListAsync();
 
+        public List<SelectListItem> GetGroupSelectList() => _context.Groups.Where(g => g.ParentId == null).Select(g => new
+              SelectListItem
+        {
+            Text = g.Title,
+            Value = g.GroupId.ToString()
+        }).ToList();
+
+
+        public async Task<List<SelectListItem>> GetGroupSelectListAsync() => await _context.Groups.Where(g => g.ParentId == null).Select(g => new
+           SelectListItem
+        {
+            Text = g.Title,
+            Value = g.GroupId.ToString()
+        }).ToListAsync();
+
+
 
         /// <summary>
         /// Get all SubGroups
@@ -111,6 +128,30 @@ namespace kennel_bambino.web.Services
 
 
         public async Task<IEnumerable<Group>> GetSubGroupsAsync() => await _context.Groups.Where(g => g.ParentId != null).ToListAsync();
+
+        public List<SelectListItem> GetSubGroupSelectList(int groupId) => _context.Groups
+            .Where(sg => sg.ParentId == groupId)
+            .Select(sg => new 
+            SelectListItem 
+            { 
+                Text = sg.Title, Value = sg.GroupId.ToString()
+            }).ToList();
+       
+        public Task<List<SelectListItem>> GetSubGroupSelectListAsync(int groupId) => _context.Groups
+            .Where(sg => sg.ParentId == groupId)
+            .Select(sg => new
+            SelectListItem
+            {
+                Text = sg.Title,
+                Value = sg.GroupId.ToString()
+            }).ToListAsync();
+
+        public int GroupsCount() => _context.Groups.Where(g => g.ParentId == null).Count();
+
+
+
+        public async Task<int> GroupsCountAsync() => await _context.Groups.Where(g => g.ParentId == null).CountAsync();
+
 
         /// <summary>
         /// Remove the Group from database
@@ -131,6 +172,13 @@ namespace kennel_bambino.web.Services
             _context.Groups.Remove(group);
             await _context.SaveChangesAsync();
         }
+
+        public int SubGroupsCount() => _context.Groups.Where(sg => sg.ParentId != null).Count();
+
+
+        public async Task<int> SubGroupsCountAsync() => await _context.Groups.Where(sg => sg.ParentId != null).CountAsync();
+
+
         /// <summary>
         /// Update the group's data from database
         /// </summary>

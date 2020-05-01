@@ -1,4 +1,5 @@
 ﻿using kennel_bambino.web.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,8 @@ namespace kennel_bambino.web.Interfaces
         Task<Pattern> AddPatternAsync(Pattern pattern);
         List<Pattern> GetAllPatterns();
         Task<List<Pattern>> GetAllPatternsAsync();
+        List<SelectListItem> GetPatternSelectList();
+        Task<List<SelectListItem>> GetPatternSelectListAsync();
         Pattern GetPatternById(int patternId);
         Task<Pattern> GetPatternByIdAsync(int patternId);
         Pattern UpdatePattern(Pattern pattern);

@@ -28,7 +28,13 @@ namespace kennel_bambino.web
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-            services.AddRazorPages();
+
+            services.AddControllers();
+
+            services.AddRazorPages().AddRazorPagesOptions(options =>
+            {
+                options.Conventions.AuthorizeFolder("/Admin");
+            });
 
             services.AddTransient<IBodyTypeService, BodyTypeService>();
             services.AddTransient<IEyeColorService, EyeColorService>();
@@ -37,6 +43,7 @@ namespace kennel_bambino.web
             services.AddTransient<IMessageService, MessageService>();
             services.AddTransient<IPhotoService, PhotoService>();
             services.AddTransient<IGroupService, GroupService>();
+            services.AddTransient<IPetService, PetService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -65,6 +72,8 @@ namespace kennel_bambino.web
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
+
+                endpoints.MapDefaultControllerRoute();
             });
         }
     }
